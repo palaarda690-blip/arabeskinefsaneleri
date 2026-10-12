@@ -29,9 +29,6 @@
     
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Caster.fm Player Script (Head içinde kesin yükleme) -->
-    <script src="https://cdn.cloud.caster.fm/widgets/embed.js"></script>
 
     <style>
         .glass {
@@ -52,11 +49,17 @@
         .animate-pulse-slow {
             animation: pulse-slow 3s infinite ease-in-out;
         }
-        
-        /* Caster Player Alanı Özel Sabitleme */
-        .player-container iframe {
-            width: 100% !important;
-            border-radius: 12px;
+
+        /* Caster.fm zorunlu yönlendirme linklerinin player tarafından okunabilmesi için açık bırakılması */
+        .cstrEmbed {
+            display: block !important;
+            min-height: 80px;
+        }
+        .cstrEmbed a {
+            color: #8b5cf6 !important;
+            font-size: 11px !important;
+            margin: 0 4px;
+            text-decoration: underline !important;
         }
     </style>
 </head>
@@ -113,14 +116,14 @@
                 <p class="text-sm text-purple-300">Stüdyo Canlı Yayın</p>
             </div>
 
-            <!-- Caster.fm Embed Player Box -->
-            <div class="player-container w-full bg-gray-900/80 p-4 rounded-2xl border border-purple-500/30 min-h-[100px] flex items-center justify-center">
-                <div class="cstrEmbed w-full" data-type="newStreamPlayer" data-publicToken="cb256563-1485-4cd0-96ce-8fb1e84d1216" data-theme="light" data-color="6C2BDD" data-channelId="" data-rendered="false">
-                    <a href="https://www.caster.fm" target="_blank" class="text-xs text-purple-400 hover:underline">Shoutcast Hosting</a> 
-                    <a href="https://www.caster.fm" target="_blank" class="text-xs text-purple-400 hover:underline">Stream Hosting</a> 
-                    <a href="https://www.caster.fm" target="_blank" class="text-xs text-purple-400 hover:underline">Radio Server Hosting</a>
+            <!-- Caster.fm Player Alanı (Senin Kodun Tam Haliyle) -->
+            <div class="w-full bg-gray-900/90 p-4 rounded-2xl border border-purple-500/30">
+                <div class="cstrEmbed" data-type="newStreamPlayer" data-publicToken="cb256563-1485-4cd0-96ce-8fb1e84d1216" data-theme="light" data-color="6C2BDD" data-channelId="" data-rendered="false">
+                    <a href="https://www.caster.fm">Shoutcast Hosting</a> <a href="https://www.caster.fm">Stream Hosting</a> <a href="https://www.caster.fm">Radio Server Hosting</a>
                 </div>
+                <script src="https://cdn.cloud.caster.fm/widgets/embed.js"></script>
             </div>
+
         </div>
     </section>
 
@@ -208,3 +211,32 @@
 
     <!-- UI Scripts -->
     <script>
+        function toggleChat() {
+            const modal = document.getElementById('chatModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function sendRequest(e) {
+            e.preventDefault();
+            const name = document.getElementById('reqName').value;
+            alert("Teşekkürler " + name + "! İstek mesajınız stüdyoya iletildi.");
+            e.target.reset();
+        }
+
+        function sendChat(e) {
+            e.preventDefault();
+            const input = document.getElementById('chatInput');
+            const chatMessages = document.getElementById('chatMessages');
+            
+            if(input.value.trim() !== '') {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = "bg-gray-900/60 p-2.5 rounded-xl border border-gray-800";
+                msgDiv.innerHTML = `<span class="font-bold text-indigo-400">Siz:</span> ${input.value}`;
+                chatMessages.appendChild(msgDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                input.value = '';
+            }
+        }
+    </script>
+</body>
+</html>
