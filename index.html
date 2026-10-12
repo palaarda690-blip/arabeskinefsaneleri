@@ -29,10 +29,13 @@
     
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Sign-In SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <style>
         .glass {
-            background: rgba(17, 24, 39, 0.7);
+            background: rgba(17, 24, 39, 0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -50,7 +53,6 @@
             animation: pulse-slow 3s infinite ease-in-out;
         }
 
-        /* Caster.fm zorunlu yönlendirme linklerinin player tarafından okunabilmesi için açık bırakılması */
         .cstrEmbed {
             display: block !important;
             min-height: 80px;
@@ -76,31 +78,47 @@
                 <p class="text-xs text-gray-400">7/24 Kesintisiz Müzik Yayını</p>
             </div>
         </div>
+        
         <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
             <a href="#player" class="hover:text-purple-400 transition">Dinle</a>
             <a href="#schedule" class="hover:text-purple-400 transition">Yayın Akışı</a>
             <a href="#contact" class="hover:text-purple-400 transition">İstek Hattı</a>
         </nav>
-        <button onclick="toggleChat()" class="bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-full font-medium transition shadow-lg shadow-purple-600/30 flex items-center space-x-2">
-            <i class="fa-solid fa-comments"></i>
-            <span>Canlı Sohbet</span>
-        </button>
+
+        <div class="flex items-center space-x-3">
+            <!-- User Profile Area -->
+            <div id="userProfile" class="hidden items-center space-x-2 bg-gray-900 border border-purple-500/30 px-3 py-1.5 rounded-full">
+                <img id="userAvatar" src="" class="w-6 h-6 rounded-full" alt="Avatar">
+                <span id="userName" class="text-xs font-semibold text-purple-300"></span>
+                <button onclick="logoutGoogle()" class="text-gray-400 hover:text-red-400 ml-1 text-xs" title="Çıkış Yap">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+
+            <!-- Login / Chat Button -->
+            <button id="loginBtnNav" onclick="openLoginModal()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs px-4 py-2 rounded-full font-medium transition shadow-lg shadow-purple-600/30 flex items-center space-x-2">
+                <i class="fa-brands fa-google"></i>
+                <span>Giriş Yap</span>
+            </button>
+
+            <button onclick="toggleChat()" class="bg-purple-900/60 hover:bg-purple-800 border border-purple-500/40 text-white text-xs px-3.5 py-2 rounded-full font-medium transition flex items-center space-x-2">
+                <i class="fa-solid fa-comments text-purple-400"></i>
+                <span class="hidden sm:inline">Sohbet</span>
+            </button>
+        </div>
     </header>
 
     <!-- Hero / Player Section -->
     <section id="player" class="relative flex-1 flex flex-col items-center justify-center px-4 py-12 overflow-hidden">
-        <!-- Background Glow Orbs -->
         <div class="absolute w-96 h-96 bg-purple-700/20 rounded-full blur-3xl -top-20 -left-20 pointer-events-none"></div>
         <div class="absolute w-96 h-96 bg-pink-600/20 rounded-full blur-3xl -bottom-20 -right-20 pointer-events-none"></div>
 
         <div class="max-w-xl w-full glass rounded-3xl p-6 md:p-8 shadow-2xl relative z-10 border border-purple-500/20 text-center">
-            <!-- Live Badge -->
             <div class="inline-flex items-center space-x-2 bg-red-500/10 border border-red-500/30 px-3 py-1 rounded-full text-red-400 text-xs font-semibold mb-6">
                 <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
                 <span>CANLI YAYINDA</span>
             </div>
 
-            <!-- Spinning Vinyl -->
             <div class="relative w-40 h-40 mx-auto mb-6 flex items-center justify-center">
                 <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-600 to-pink-500 blur-md opacity-55 animate-spin" style="animation-duration: 10s;"></div>
                 <div class="w-40 h-40 rounded-full bg-gray-900 border-4 border-purple-500/40 flex items-center justify-center shadow-2xl relative">
@@ -110,26 +128,23 @@
                 </div>
             </div>
 
-            <!-- Song Info -->
             <div class="mb-6">
                 <h2 class="text-xl font-bold text-white mb-1">Müzik Şöleni Başlıyor</h2>
                 <p class="text-sm text-purple-300">Stüdyo Canlı Yayın</p>
             </div>
 
-            <!-- Caster.fm Player Alanı (Senin Kodun Tam Haliyle) -->
+            <!-- Caster.fm Player Kodunuz -->
             <div class="w-full bg-gray-900/90 p-4 rounded-2xl border border-purple-500/30">
                 <div class="cstrEmbed" data-type="newStreamPlayer" data-publicToken="cb256563-1485-4cd0-96ce-8fb1e84d1216" data-theme="light" data-color="6C2BDD" data-channelId="" data-rendered="false">
                     <a href="https://www.caster.fm">Shoutcast Hosting</a> <a href="https://www.caster.fm">Stream Hosting</a> <a href="https://www.caster.fm">Radio Server Hosting</a>
                 </div>
                 <script src="https://cdn.cloud.caster.fm/widgets/embed.js"></script>
             </div>
-
         </div>
     </section>
 
     <!-- Schedule & Requests -->
     <section id="schedule" class="py-12 px-6 max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Schedule -->
         <div class="glass-card p-6 rounded-2xl">
             <h3 class="text-xl font-bold mb-6 flex items-center space-x-3 text-purple-400">
                 <i class="fa-solid fa-calendar-days"></i>
@@ -160,7 +175,6 @@
             </div>
         </div>
 
-        <!-- Contact / Request Form -->
         <div id="contact" class="glass-card p-6 rounded-2xl">
             <h3 class="text-xl font-bold mb-6 flex items-center space-x-3 text-purple-400">
                 <i class="fa-solid fa-paper-plane"></i>
@@ -182,26 +196,68 @@
         </div>
     </section>
 
-    <!-- Interactive Live Chat Modal -->
-    <div id="chatModal" class="fixed bottom-20 right-6 w-80 md:w-96 glass rounded-2xl shadow-2xl z-50 hidden flex flex-col h-[420px] border border-purple-500/30 overflow-hidden">
+    <!-- Google Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] hidden flex items-center justify-center p-4">
+        <div class="glass max-w-sm w-full rounded-3xl p-6 text-center border border-purple-500/30 shadow-2xl relative">
+            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <div class="w-16 h-16 bg-purple-600/20 text-purple-400 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-purple-500/30 text-2xl">
+                <i class="fa-brands fa-google"></i>
+            </div>
+            
+            <h3 class="text-lg font-bold text-white mb-2">Google ile Giriş Yapın</h3>
+            <p class="text-xs text-gray-400 mb-6">Canlı sohbete katılmak ve mesaj göndermek için Google hesabınızla kolayca oturum açın.</p>
+            
+            <!-- Custom Google Sign-In Button Container -->
+            <div class="flex justify-center my-4">
+                <div id="g_id_onload"
+                     data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-shape="pill"
+                     data-theme="filled_blue"
+                     data-text="signin_with"
+                     data-size="large"
+                     data-logo_alignment="left">
+                </div>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-gray-800">
+                <button onclick="guestLogin()" class="text-xs text-purple-400 hover:underline">
+                    Giriş yapmadan Misafir olarak devam et
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Chat Drawer -->
+    <div id="chatModal" class="fixed bottom-20 right-6 w-80 md:w-96 glass rounded-2xl shadow-2xl z-50 hidden flex flex-col h-[450px] border border-purple-500/30 overflow-hidden">
         <div class="bg-purple-900/60 p-3.5 flex items-center justify-between border-b border-purple-500/20">
             <div class="flex items-center space-x-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
                 <h4 class="font-bold text-sm text-white">Canlı Dinleyici Sohbeti</h4>
             </div>
             <button onclick="toggleChat()" class="text-gray-300 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <!-- Chat Messages -->
+
         <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
-            <div class="bg-gray-900/60 p-2.5 rounded-xl border border-gray-800">
-                <span class="font-bold text-purple-400">DJ Stüdyo:</span> Yayınımıza hoş geldiniz!
+            <div class="bg-purple-950/40 p-2.5 rounded-xl border border-purple-500/20">
+                <span class="font-bold text-purple-400"><i class="fa-solid fa-robot mr-1"></i> ModBot:</span> Radyomuza hoş geldiniz! Sohbet alanında saygılı davranalım.
             </div>
         </div>
+
         <!-- Chat Input Form -->
-        <form onsubmit="sendChat(event)" class="p-3 bg-gray-950 border-t border-gray-800 flex space-x-2">
-            <input type="text" id="chatInput" placeholder="Mesaj yaz..." required class="flex-1 bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500">
-            <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition">Gönder</button>
-        </form>
+        <div class="p-3 bg-gray-950 border-t border-gray-800">
+            <form onsubmit="sendChat(event)" class="flex space-x-2">
+                <input type="text" id="chatInput" placeholder="Mesaj yaz..." required class="flex-1 bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500">
+                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition">Gönder</button>
+            </form>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -209,33 +265,133 @@
         &copy; 2026 Profesyonel Canlı Radyo Sistemi. Tüm Hakları Saklıdır.
     </footer>
 
-    <!-- UI Scripts -->
+    <!-- Scripts -->
     <script>
+        let currentUser = null;
+
+        // Küfür & Argo Filtreleme Botu
+        const badWords = ["amk", "aq", "sik", "piç", "orospu", "yarrak", "göt", "ibne", "kahpe", "yavşak", "fuck", "bitch"];
+
+        function filterBadWords(text) {
+            let filteredText = text;
+            badWords.forEach(word => {
+                const regex = new RegExp(`\\b${word}\\b|${word}`, 'gi');
+                filteredText = filteredText.replace(regex, '***');
+            });
+            return filteredText;
+        }
+
+        // Google Sign-In Callback Function
+        function handleCredentialResponse(response) {
+            try {
+                // Decode JWT Token
+                const base64Url = response.credential.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+
+                const userData = JSON.parse(jsonPayload);
+                currentUser = {
+                    name: userData.name,
+                    picture: userData.picture,
+                    email: userData.email
+                };
+
+                updateUserUI();
+                closeLoginModal();
+            } catch (e) {
+                console.error("Google login error", e);
+            }
+        }
+
+        function guestLogin() {
+            currentUser = {
+                name: "Misafir Dinleyici",
+                picture: "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+            };
+            updateUserUI();
+            closeLoginModal();
+        }
+
+        function updateUserUI() {
+            if (currentUser) {
+                document.getElementById('userProfile').classList.remove('hidden');
+                document.getElementById('userProfile').classList.add('flex');
+                document.getElementById('loginBtnNav').classList.add('hidden');
+                document.getElementById('userName').innerText = currentUser.name;
+                document.getElementById('userAvatar').src = currentUser.picture;
+            }
+        }
+
+        function logoutGoogle() {
+            currentUser = null;
+            document.getElementById('userProfile').classList.add('hidden');
+            document.getElementById('userProfile').classList.remove('flex');
+            document.getElementById('loginBtnNav').classList.remove('hidden');
+        }
+
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+
         function toggleChat() {
             const modal = document.getElementById('chatModal');
             modal.classList.toggle('hidden');
         }
 
-        function sendRequest(e) {
-            e.preventDefault();
-            const name = document.getElementById('reqName').value;
-            alert("Teşekkürler " + name + "! İstek mesajınız stüdyoya iletildi.");
-            e.target.reset();
-        }
-
         function sendChat(e) {
             e.preventDefault();
+            
+            if (!currentUser) {
+                openLoginModal();
+                return;
+            }
+
             const input = document.getElementById('chatInput');
             const chatMessages = document.getElementById('chatMessages');
-            
-            if(input.value.trim() !== '') {
+            const rawText = input.value.trim();
+
+            if (rawText !== '') {
+                const cleanText = filterBadWords(rawText);
+                const wasBadWord = cleanText !== rawText;
+
                 const msgDiv = document.createElement('div');
-                msgDiv.className = "bg-gray-900/60 p-2.5 rounded-xl border border-gray-800";
-                msgDiv.innerHTML = `<span class="font-bold text-indigo-400">Siz:</span> ${input.value}`;
+                msgDiv.className = "bg-gray-900/70 p-2.5 rounded-xl border border-gray-800 flex items-start space-x-2";
+                msgDiv.innerHTML = `
+                    <img src="${currentUser.picture}" class="w-5 h-5 rounded-full mt-0.5">
+                    <div>
+                        <span class="font-bold text-purple-300">${currentUser.name}:</span> 
+                        <span class="text-gray-200">${cleanText}</span>
+                    </div>
+                `;
                 chatMessages.appendChild(msgDiv);
+
+                // Küfür kullanıldıysa uyarı mesajı ekle
+                if (wasBadWord) {
+                    setTimeout(() => {
+                        const botDiv = document.createElement('div');
+                        botDiv.className = "bg-red-950/40 p-2.5 rounded-xl border border-red-500/30 text-red-300";
+                        botDiv.innerHTML = `<span class="font-bold"><i class="fa-solid fa-shield-halved"></i> ModBot:</span> Lütfen küfürlü ve argo kelimeler kullanmayınız!`;
+                        chatMessages.appendChild(botDiv);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }, 400);
+                }
+
                 chatMessages.scrollTop = chatMessages.scrollHeight;
                 input.value = '';
             }
+        }
+
+        function sendRequest(e) {
+            e.preventDefault();
+            const name = document.getElementById('reqName').value;
+            alert("Teşekkürler " + name + "! İstek mesajınız DJ stüdyosuna iletildi.");
+            e.target.reset();
         }
     </script>
 </body>
