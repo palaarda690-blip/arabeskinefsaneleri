@@ -1,19 +1,11 @@
-
 <!DOCTYPE html>
-<html lang="tr" class="dark scroll-smooth">
+<html lang="tr" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nostalji FM - Türkiye'nin En İyi Dijital Radyosu</title>
+    <title>Profesyonel Canlı Radyo</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Montserrat & Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Caster.fm Widget Script -->
-    <script src="https://cdn.cloud.caster.fm//widgets/embed.js"></script>
-    
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -21,617 +13,220 @@
                 extend: {
                     colors: {
                         brand: {
-                            gold: '#FFD700',
-                            amber: '#F59E0B',
-                            purple: '#6C2BDD',
-                            dark: '#0B0F19',
-                            card: '#111827',
-                            accent: '#8B5CF6',
-                            neon: '#06B6D4'
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            900: '#4c1d95',
                         }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Montserrat', 'sans-serif']
                     }
                 }
             }
         }
     </script>
-
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Custom Glassmorphism Effects */
-        .glass-panel {
-            background: rgba(17, 24, 39, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .glass {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .glass-player {
-            background: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(108, 43, 221, 0.4);
+        .glass-card {
+            background: rgba(31, 41, 55, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-
-        /* Equalizer Animation Bars */
-        .eq-bar {
-            width: 3px;
-            background: linear-gradient(to top, #6C2BDD, #F59E0B);
-            border-radius: 3px;
-            animation: bounce 1s ease-in-out infinite alternate;
+        @keyframes pulse-slow {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
         }
-        .eq-bar:nth-child(1) { height: 16px; animation-delay: 0.1s; }
-        .eq-bar:nth-child(2) { height: 26px; animation-delay: 0.3s; }
-        .eq-bar:nth-child(3) { height: 12px; animation-delay: 0.2s; }
-        .eq-bar:nth-child(4) { height: 22px; animation-delay: 0.4s; }
-        .eq-bar:nth-child(5) { height: 18px; animation-delay: 0.15s; }
-
-        @keyframes bounce {
-            100% { height: 4px; }
-        }
-
-        /* Custom Caster Embed Styling */
-        .cstrEmbed {
-            width: 100% !important;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .cstrEmbed iframe {
-            border-radius: 12px !important;
-            box-shadow: 0 8px 32px rgba(108, 43, 221, 0.25) !important;
-            max-width: 100% !important;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0B0F19;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1F2937;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6C2BDD;
+        .animate-pulse-slow {
+            animation: pulse-slow 3s infinite ease-in-out;
         }
     </style>
 </head>
-<body class="bg-[#0B0F19] text-gray-100 font-sans antialiased selection:bg-brand-purple selection:text-white pb-32">
+<body class="bg-gray-950 text-gray-100 min-h-screen flex flex-col selection:bg-purple-600 selection:text-white">
 
-    <!-- HEADER / NAVIGATION -->
-    <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300 glass-panel" id="mainHeader">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-purple to-brand-amber flex items-center justify-center text-white font-black text-xl shadow-lg shadow-brand-purple/30 group-hover:scale-105 transition-transform">
-                        <i class="fa-solid font-bold fa-radio"></i>
-                    </div>
-                    <div>
-                        <span class="font-display font-black text-xl tracking-wider text-white block leading-none">NOSTALJİ <span class="text-brand-amber">FM</span></span>
-                        <span class="text-[10px] text-gray-400 font-medium tracking-widest uppercase">7/24 Dijital Yayın</span>
-                    </div>
-                </a>
-
-                <!-- Desktop Navigation Links -->
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#hero" class="text-sm font-medium text-brand-amber transition-colors hover:text-brand-gold">Ana Sayfa</a>
-                    <a href="#canli-player" class="text-sm font-medium text-gray-300 hover:text-brand-amber transition-colors">Canlı Player</a>
-                    <a href="#yayinakisi" class="text-sm font-medium text-gray-300 hover:text-brand-amber transition-colors">Yayın Akışı</a>
-                    <a href="#programlar" class="text-sm font-medium text-gray-300 hover:text-brand-amber transition-colors">Yayıncılar</a>
-                    <a href="#iletisim" class="text-sm font-medium text-gray-300 hover:text-brand-amber transition-colors">İletişim</a>
-                </nav>
-
-                <!-- Header Actions & Live Badge -->
-                <div class="hidden sm:flex items-center gap-4">
-                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-500 text-xs font-semibold uppercase tracking-wider">
-                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-                        <span class="w-2 h-2 rounded-full bg-red-500 -ml-4"></span>
-                        CANLI YAYINDA
-                    </div>
-                    <button onclick="openModal()" class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-brand-purple to-indigo-600 hover:opacity-90 rounded-xl shadow-lg shadow-brand-purple/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2">
-                        <i class="fa-solid fa-compact-disc text-sm"></i> İstek Gönder
-                    </button>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <button id="mobileMenuBtn" class="md:hidden text-gray-300 hover:text-white p-2 rounded-lg focus:outline-none">
-                    <i class="fa-solid fa-bars text-2xl"></i>
-                </button>
+    <!-- Header / Navbar -->
+    <header class="glass sticky top-0 z-50 px-6 py-4 flex items-center justify-between border-b border-purple-900/30">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-purple-500/30 animate-pulse-slow">
+                <i class="fa-solid fa-radio text-white text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-lg tracking-wide bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">CANLI RADYO</h1>
+                <p class="text-xs text-gray-400">7/24 Kesintisiz Müzik Yayını</p>
             </div>
         </div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobileMenu" class="hidden md:hidden glass-panel border-t border-gray-800 px-4 pt-3 pb-6 space-y-3">
-            <a href="#hero" class="block py-2 text-base font-medium text-brand-amber">Ana Sayfa</a>
-            <a href="#canli-player" class="block py-2 text-base font-medium text-gray-300">Canlı Player</a>
-            <a href="#yayinakisi" class="block py-2 text-base font-medium text-gray-300">Yayın Akışı</a>
-            <a href="#programlar" class="block py-2 text-base font-medium text-gray-300">Yayıncılar</a>
-            <a href="#iletisim" class="block py-2 text-base font-medium text-gray-300">İletişim</a>
-            <div class="pt-2">
-                <button onclick="openModal()" class="w-full py-3 text-sm font-bold uppercase text-white bg-gradient-to-r from-brand-purple to-indigo-600 rounded-xl shadow-md flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-compact-disc"></i> İstek Parça Gönder
-                </button>
-            </div>
-        </div>
+        <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+            <a href="#player" class="hover:text-purple-400 transition">Dinle</a>
+            <a href="#schedule" class="hover:text-purple-400 transition">Yayın Akışı</a>
+            <a href="#djs" class="hover:text-purple-400 transition">DJ Kadrosu</a>
+            <a href="#contact" class="hover:text-purple-400 transition">İstek Hattı</a>
+        </nav>
+        <button onclick="toggleChat()" class="bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-full font-medium transition shadow-lg shadow-purple-600/30 flex items-center space-x-2">
+            <i class="fa-solid fa-comments"></i>
+            <span>Canlı Sohbet</span>
+        </button>
     </header>
 
-    <!-- HERO SECTION -->
-    <section id="hero" class="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden flex items-center justify-center min-h-[85vh]">
-        <!-- Background Ambient Lights & Shapes -->
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-purple/20 rounded-full blur-[140px] pointer-events-none"></div>
-        <div class="absolute bottom-10 left-10 w-[300px] h-[300px] bg-brand-amber/10 rounded-full blur-[100px] pointer-events-none"></div>
+    <!-- Hero / Player Section -->
+    <section id="player" class="relative flex-1 flex flex-col items-center justify-center px-4 py-12 overflow-hidden">
+        <!-- Background Glow Orbs -->
+        <div class="absolute w-96 h-96 bg-purple-700/20 rounded-full blur-3xl -top-20 -left-20 pointer-events-none"></div>
+        <div class="absolute w-96 h-96 bg-pink-600/20 rounded-full blur-3xl -bottom-20 -right-20 pointer-events-none"></div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
-                <!-- Hero Text Content -->
-                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-brand-purple/40 text-brand-amber text-xs font-semibold tracking-wide uppercase">
-                        <i class="fa-solid fa-wifi text-sm animate-pulse text-brand-purple"></i>
-                        <span>Web & Mobil Dijital Yayın</span>
-                    </div>
+        <div class="max-w-xl w-full glass rounded-3xl p-8 shadow-2xl relative z-10 border border-purple-500/20 text-center">
+            <!-- Live Badge -->
+            <div class="inline-flex items-center space-x-2 bg-red-500/10 border border-red-500/30 px-3 py-1 rounded-full text-red-400 text-xs font-semibold mb-6">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                <span>CANLI YAYINDA</span>
+            </div>
 
-                    <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white">
-                        Kesintisiz Canlı <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-amber via-brand-gold to-brand-purple">Dijital Radyo</span> Deneyimi
-                    </h1>
-
-                    <p class="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-                        Unutulmayan plak kayıtları, 80'ler ve 90'ların eskimeyen nostalji ve arabesk klasikleri yüksek kaliteli ses akışıyla 7 gün 24 saat yayında!
-                    </p>
-
-                    <!-- Hero Player Container (Caster.fm Embed Integrated) -->
-                    <div id="canli-player" class="pt-2">
-                        <div class="glass-panel p-5 rounded-2xl border border-brand-purple/40 shadow-2xl relative overflow-hidden max-w-xl mx-auto lg:mx-0">
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
-                                    <span class="text-xs font-bold text-white uppercase tracking-wider">CANLI SES AKIŞI</span>
-                                </div>
-                                <div class="flex gap-1 h-4 items-end">
-                                    <div class="eq-bar"></div>
-                                    <div class="eq-bar"></div>
-                                    <div class="eq-bar"></div>
-                                    <div class="eq-bar"></div>
-                                    <div class="eq-bar"></div>
-                                </div>
-                            </div>
-
-                            <!-- CASTER.FM EMBED WIDGET HERE -->
-                            <div class="cstrEmbed" data-type="newStreamPlayer" data-publicToken="cb256563-1485-4cd0-96ce-8fb1e84d1216" data-theme="light" data-color="6C2BDD" data-channelId="" data-rendered="false">
-                                <a href="https://www.caster.fm">Shoutcast Hosting</a> 
-                                <a href="https://www.caster.fm">Stream Hosting</a> 
-                                <a href="https://www.caster.fm">Radio Server Hosting</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Hero Action Buttons -->
-                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                        <button onclick="openModal()" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-purple to-indigo-600 text-white font-extrabold text-base uppercase tracking-wider shadow-xl shadow-brand-purple/30 hover:shadow-brand-purple/50 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3">
-                            <i class="fa-solid fa-paper-plane text-brand-amber"></i>
-                            İstek Parça Gönder
-                        </button>
-                    </div>
-
-                </div>
-
-                <!-- Hero DJ / Vinyl Visual -->
-                <div class="lg:col-span-5 flex justify-center relative">
-                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-                        <!-- Vinyl Outer Glow -->
-                        <div class="absolute inset-0 rounded-full bg-gradient-to-r from-brand-purple to-brand-amber blur-3xl opacity-25 animate-pulse"></div>
-                        
-                        <!-- Vinyl Disc Container -->
-                        <div class="relative w-full h-full rounded-full bg-neutral-900 border-8 border-neutral-800 shadow-2xl flex items-center justify-center overflow-hidden">
-                            <!-- Grooves Effect -->
-                            <div class="absolute inset-2 rounded-full border border-neutral-700/40"></div>
-                            <div class="absolute inset-6 rounded-full border border-neutral-700/30"></div>
-                            <div class="absolute inset-10 rounded-full border border-neutral-700/20"></div>
-                            <div class="absolute inset-16 rounded-full border border-neutral-700/20"></div>
-                            
-                            <!-- Vinyl Center Label -->
-                            <div class="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-tr from-brand-purple via-indigo-600 to-brand-amber p-1 flex items-center justify-center shadow-inner">
-                                <div class="w-full h-full rounded-full bg-gray-950 flex flex-col items-center justify-center text-center p-2 relative">
-                                    <div class="w-4 h-4 rounded-full bg-neutral-200 border-2 border-gray-950 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"></div>
-                                    <i class="fa-solid fa-compact-disc text-3xl text-brand-amber mb-1 opacity-80 animate-spin" style="animation-duration: 8s;"></i>
-                                    <span class="text-[10px] font-black text-white tracking-widest uppercase">NOSTALJİ FM</span>
-                                    <span class="text-[8px] text-gray-400">DİJİTAL RADYO</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- On-Air Badge Overlay -->
-                        <div class="absolute -bottom-2 -right-2 glass-panel border border-brand-purple/50 rounded-2xl p-4 shadow-xl flex items-center gap-3">
-                            <div class="w-3 h-3 rounded-full bg-red-500 animate-ping"></div>
-                            <div>
-                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">ŞU AN CANLI</p>
-                                <p class="text-sm font-bold text-white">Arabesk Klasikler & Nostalji</p>
-                            </div>
-                        </div>
+            <!-- Spinning Vinyl / Visualizer -->
+            <div class="relative w-48 h-48 mx-auto mb-8 flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-600 to-pink-500 blur-md opacity-55 animate-spin" style="animation-duration: 10s;"></div>
+                <div class="w-48 h-48 rounded-full bg-gray-900 border-4 border-purple-500/40 flex items-center justify-center shadow-2xl relative">
+                    <div class="w-36 h-36 rounded-full bg-gradient-to-br from-gray-950 to-gray-900 border border-gray-800 flex items-center justify-center">
+                        <i class="fa-solid fa-headphones-simple text-4xl text-purple-400 animate-bounce"></i>
                     </div>
                 </div>
+            </div>
 
+            <!-- Song Info -->
+            <div class="mb-6">
+                <h2 id="current-song" class="text-xl font-bold text-white mb-1">Müzik Şöleni Başlıyor</h2>
+                <p id="current-dj" class="text-sm text-purple-300">Stüdyo Canlı Yayın</p>
+            </div>
+
+            <!-- Caster.fm Embed Player -->
+            <div class="flex justify-center items-center w-full my-4">
+                <div class="cstrEmbed w-full max-w-md" data-type="newStreamPlayer" data-publicToken="cb256563-1485-4cd0-96ce-8fb1e84d1216" data-theme="light" data-color="6C2BDD" data-channelId="" data-rendered="false">
+                    <a href="https://www.caster.fm">Shoutcast Hosting</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- BROADCAST SCHEDULE SECTION -->
-    <section id="yayinakisi" class="py-20 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="text-center max-w-3xl mx-auto mb-12">
-                <h2 class="text-xs font-bold text-brand-amber uppercase tracking-widest mb-2">GÜNLÜK PROGRAM</h2>
-                <h3 class="font-display text-3xl sm:text-4xl font-black text-white">Yayın Akışı</h3>
-                <p class="text-gray-400 text-sm mt-3">En sevdiğiniz programcıların yayın saatlerini kaçırmayın.</p>
-            </div>
-
-            <!-- Schedule Timetable Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Program Card 1 -->
-                <div class="glass-panel rounded-2xl p-6 relative overflow-hidden border border-brand-purple/50 shadow-lg shadow-brand-purple/10 group">
-                    <div class="absolute top-0 right-0 bg-gradient-to-l from-brand-purple to-indigo-600 text-white font-black text-[10px] px-3 py-1 rounded-bl-xl uppercase tracking-wider">
-                        ŞU AN CANLI
-                    </div>
-                    <div class="flex items-center gap-4 mb-4">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop" class="w-14 h-14 rounded-xl object-cover border-2 border-brand-purple" alt="Arda">
-                        <div>
-                            <span class="text-xs font-bold text-brand-amber">12:00 - 15:00</span>
-                            <h4 class="text-lg font-bold text-white group-hover:text-brand-amber transition-colors">Arda ile Arabesk Show</h4>
-                            <p class="text-xs text-gray-400">Sunucu: Arda Yılmaz</p>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-300 line-clamp-2">Günün ortasında dertlere ortak olan en damar arabesk parçalar ve canlı mesaj bağlantıları.</p>
-                </div>
-
-                <!-- Program Card 2 -->
-                <div class="glass-panel rounded-2xl p-6 relative overflow-hidden border border-white/5 hover:border-brand-purple/40 transition-all group">
-                    <div class="flex items-center gap-4 mb-4">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop" class="w-14 h-14 rounded-xl object-cover border border-gray-700" alt="Selim">
-                        <div>
-                            <span class="text-xs font-bold text-gray-400">15:00 - 18:00</span>
-                            <h4 class="text-lg font-bold text-white group-hover:text-brand-amber transition-colors">Nostalji Rüzgarı</h4>
-                            <p class="text-xs text-gray-400">Sunucu: Selim Kaya</p>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-400 line-clamp-2">70'ler, 80'ler ve 90'ların unutulmaz yeşilçam şarkıları ve taş plak kayıtları ile yolculuk.</p>
-                </div>
-
-                <!-- Program Card 3 -->
-                <div class="glass-panel rounded-2xl p-6 relative overflow-hidden border border-white/5 hover:border-brand-purple/40 transition-all group">
-                    <div class="flex items-center gap-4 mb-4">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop" class="w-14 h-14 rounded-xl object-cover border border-gray-700" alt="Zeynep">
-                        <div>
-                            <span class="text-xs font-bold text-gray-400">18:00 - 21:00</span>
-                            <h4 class="text-lg font-bold text-white group-hover:text-brand-amber transition-colors">Akşam Sefası</h4>
-                            <p class="text-xs text-gray-400">Sunucu: Zeynep Demir</p>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-400 line-clamp-2">İş çıkışında içinizi ısıtacak Türk Sanat Müziği ve hafif nostalji eserleri.</p>
-                </div>
-
-                <!-- Program Card 4 -->
-                <div class="glass-panel rounded-2xl p-6 relative overflow-hidden border border-white/5 hover:border-brand-purple/40 transition-all group">
-                    <div class="flex items-center gap-4 mb-4">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop" class="w-14 h-14 rounded-xl object-cover border border-gray-700" alt="Murat">
-                        <div>
-                            <span class="text-xs font-bold text-gray-400">21:00 - 00:00</span>
-                            <h4 class="text-lg font-bold text-white group-hover:text-brand-amber transition-colors">Gece Postası</h4>
-                            <p class="text-xs text-gray-400">Sunucu: Murat Can</p>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-400 line-clamp-2">Geceye özel dinleyici mektupları, şiirler ve unutulmayan sevdalar.</p>
-                </div>
-
-                <!-- Program Card 5 -->
-                <div class="glass-panel rounded-2xl p-6 relative overflow-hidden border border-white/5 hover:border-brand-purple/40 transition-all group">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-14 h-14 rounded-xl bg-gray-800 flex items-center justify-center text-brand-amber text-2xl font-black">
-                            <i class="fa-solid fa-moon"></i>
-                        </div>
-                        <div>
-                            <span class="text-xs font-bold text-gray-400">00:00 - 06:00</span>
-                            <h4 class="text-lg font-bold text-white group-hover:text-brand-amber transition-colors">Gece Nöbeti</h4>
-                            <p class="text-xs text-gray-400">Kesintisiz Müzik</p>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-400 line-clamp-2">Sabaha kadar en sevilen dijital arşiv şarkılarının reklamsız yayını.</p>
-                </div>
-
-                <!-- Program Card 6 -->
-                <div class="glass-panel rounded-2xl p-6 relative overflow-hidden border border-white/5 hover:border-brand-purple/40 transition-all group">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-14 h-14 rounded-xl bg-gray-800 flex items-center justify-center text-brand-amber text-2xl font-black">
-                            <i class="fa-solid fa-sun"></i>
-                        </div>
-                        <div>
-                            <span class="text-xs font-bold text-gray-400">06:00 - 09:00</span>
-                            <h4 class="text-lg font-bold text-white group-hover:text-brand-amber transition-colors">Sabah Neşesi</h4>
-                            <p class="text-xs text-gray-400">Güne Başlarken</p>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-400 line-clamp-2">Güne pozitif bir başlangıç için hareketli nostaljik eserler.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- PROGRAMS / DJS SECTION -->
-    <section id="programlar" class="py-20 bg-gray-950/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-bold text-brand-amber uppercase tracking-widest mb-2">YAYIN EKİBİMİZ</h2>
-                <h3 class="font-display text-3xl sm:text-4xl font-black text-white">Programcılarımız</h3>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                
-                <!-- DJ 1 -->
-                <div class="glass-panel rounded-2xl p-5 text-center group hover:-translate-y-2 transition-all duration-300">
-                    <div class="relative mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-brand-purple">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Arda Yılmaz">
-                    </div>
-                    <h4 class="text-lg font-bold text-white">Arda Yılmaz</h4>
-                    <p class="text-xs text-brand-amber font-medium mb-2">Arabesk Show</p>
-                    <p class="text-xs text-gray-400 mb-4">15 yıllık radyo deneyimi ile arabesk ve damar şarkıların adresi.</p>
-                </div>
-
-                <!-- DJ 2 -->
-                <div class="glass-panel rounded-2xl p-5 text-center group hover:-translate-y-2 transition-all duration-300">
-                    <div class="relative mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-gray-700 group-hover:border-brand-purple transition-colors">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Selim Kaya">
-                    </div>
-                    <h4 class="text-lg font-bold text-white">Selim Kaya</h4>
-                    <p class="text-xs text-brand-amber font-medium mb-2">Nostalji Rüzgarı</p>
-                    <p class="text-xs text-gray-400 mb-4">Plak arşivcisi, 80'ler ve 90'lar nostalji tutkunu yayıncı.</p>
-                </div>
-
-                <!-- DJ 3 -->
-                <div class="glass-panel rounded-2xl p-5 text-center group hover:-translate-y-2 transition-all duration-300">
-                    <div class="relative mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-gray-700 group-hover:border-brand-purple transition-colors">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Zeynep Demir">
-                    </div>
-                    <h4 class="text-lg font-bold text-white">Zeynep Demir</h4>
-                    <p class="text-xs text-brand-amber font-medium mb-2">Akşam Sefası</p>
-                    <p class="text-xs text-gray-400 mb-4">Türk Sanat Müziği ve huzur dolu akşam sohbetlerinin adresi.</p>
-                </div>
-
-                <!-- DJ 4 -->
-                <div class="glass-panel rounded-2xl p-5 text-center group hover:-translate-y-2 transition-all duration-300">
-                    <div class="relative mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-gray-700 group-hover:border-brand-purple transition-colors">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Murat Can">
-                    </div>
-                    <h4 class="text-lg font-bold text-white">Murat Can</h4>
-                    <p class="text-xs text-brand-amber font-medium mb-2">Gece Postası</p>
-                    <p class="text-xs text-gray-400 mb-4">Şiirler ve geceye özel duygu yüklü parçalarla sizlerle.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section id="iletisim" class="py-20 bg-gray-950/60">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                
-                <!-- Contact Info -->
-                <div class="lg:col-span-5 space-y-6">
+    <!-- Schedule & DJs -->
+    <section id="schedule" class="py-16 px-6 max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12">
+        <!-- Schedule -->
+        <div class="glass-card p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-6 flex items-center space-x-3 text-purple-400">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>Günün Yayın Akışı</span>
+            </h3>
+            <div class="space-y-4 text-sm">
+                <div class="flex justify-between items-center p-3 rounded-xl bg-gray-900/50 border border-gray-800">
                     <div>
-                        <h2 class="text-xs font-bold text-brand-amber uppercase tracking-widest mb-2">BİZE ULAŞIN</h2>
-                        <h3 class="font-display text-3xl font-black text-white">Stüdyo İletişim</h3>
-                        <p class="text-gray-400 text-sm mt-2">Reklam, yayın sponsorlukları ve mesajlarınız için bize ulaşabilirsiniz.</p>
+                        <span class="font-bold text-white">Sabah Melodileri</span>
+                        <p class="text-xs text-gray-400">DJ Can ile Güne Başlangıç</p>
                     </div>
-
-                    <div class="space-y-4 pt-4">
-                        <div class="flex items-start gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
-                                <i class="fa-solid fa-location-dot"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-white">Stüdyo Adresi</h4>
-                                <p class="text-xs text-gray-400">Nispetiye Mah. Radyo Sokak No:12, Beşiktaş / İstanbul</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
-                                <i class="fa-solid fa-phone"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-white">Canlı Yayın İletişim & WhatsApp</h4>
-                                <p class="text-xs text-gray-400">+90 (532) 000 00 00</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-white">E-Posta</h4>
-                                <p class="text-xs text-gray-400">iletisim@nostaljifm.com.tr</p>
-                            </div>
-                        </div>
+                    <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full">08:00 - 12:00</span>
+                </div>
+                <div class="flex justify-between items-center p-3 rounded-xl bg-purple-950/30 border border-purple-500/30 shadow-md">
+                    <div>
+                        <span class="font-bold text-white">Öğle Arası Hitleri</span>
+                        <p class="text-xs text-purple-300">En Yeniler (Şu An Yayında)</p>
                     </div>
+                    <span class="text-xs bg-red-500/20 text-red-400 px-3 py-1 rounded-full font-bold">12:00 - 18:00</span>
                 </div>
-
-                <!-- Contact Form -->
-                <div class="lg:col-span-7">
-                    <form onsubmit="handleContactSubmit(event)" class="glass-panel p-8 rounded-2xl space-y-4 border border-brand-purple/20">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-gray-300 mb-1">Adınız Soyadınız</label>
-                                <input type="text" required class="w-full bg-gray-900/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-purple transition-colors" placeholder="Ahmet Yılmaz">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-gray-300 mb-1">E-Posta Adresiniz</label>
-                                <input type="email" required class="w-full bg-gray-900/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-purple transition-colors" placeholder="ahmet@example.com">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-1">Konu</label>
-                            <input type="text" required class="w-full bg-gray-900/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-purple transition-colors" placeholder="Sponsorluk / Görüş">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-300 mb-1">Mesajınız</label>
-                            <textarea rows="4" required class="w-full bg-gray-900/80 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-purple transition-colors" placeholder="Mesajınızı buraya yazınız..."></textarea>
-                        </div>
-                        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-brand-purple to-indigo-600 text-white font-bold text-sm uppercase rounded-xl hover:opacity-95 transition-opacity shadow-lg shadow-brand-purple/20">
-                            Mesaj Gönder
-                        </button>
-                    </form>
+                <div class="flex justify-between items-center p-3 rounded-xl bg-gray-900/50 border border-gray-800">
+                    <div>
+                        <span class="font-bold text-white">Akşam Kuşağı & İstekler</span>
+                        <p class="text-xs text-gray-400">Nostalji ve Arabesk Saatleri</p>
+                    </div>
+                    <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full">18:00 - 00:00</span>
                 </div>
-
             </div>
         </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer class="py-8 border-t border-gray-800 text-center text-xs text-gray-500">
-        <div class="max-w-7xl mx-auto px-4">
-            <p>© 2026 Nostalji FM - Tüm Hakları Saklıdır. Dijital Canlı Radyo Portalı.</p>
-        </div>
-    </footer>
-
-    <!-- STICKY BOTTOM AUDIO PLAYER BAR (Caster.fm Embed Integrated) -->
-    <div class="fixed bottom-0 left-0 w-full z-50 glass-player px-4 py-3">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-            
-            <!-- Station Info Badge -->
-            <div class="flex items-center gap-3 min-w-0">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple to-brand-amber flex items-center justify-center text-white shrink-0 font-black">
-                    <i class="fa-solid fa-radio"></i>
-                </div>
-                <div class="min-w-0">
-                    <h5 class="text-xs sm:text-sm font-bold text-white truncate">Nostalji FM - CANLI YAYIN</h5>
-                    <p class="text-[10px] sm:text-xs text-brand-amber truncate">7/24 Kesintisiz Dijital Ses Akışı</p>
-                </div>
-            </div>
-
-            <!-- Sticky Player Container -->
-            <div class="w-full md:w-auto flex-1 max-w-md">
-                <div class="cstrEmbed" data-type="newStreamPlayer" data-publicToken="cb256563-1485-4cd0-96ce-8fb1e84d1216" data-theme="light" data-color="6C2BDD" data-channelId="" data-rendered="false">
-                    <a href="https://www.caster.fm">Shoutcast Hosting</a> 
-                    <a href="https://www.caster.fm">Stream Hosting</a> 
-                    <a href="https://www.caster.fm">Radio Server Hosting</a>
-                </div>
-            </div>
-
-            <!-- Quick Request CTA -->
-            <button onclick="openModal()" class="px-4 py-2 rounded-xl bg-brand-purple/20 border border-brand-purple/50 text-brand-amber text-xs font-bold hover:bg-brand-purple hover:text-white transition-colors shrink-0">
-                <i class="fa-solid fa-paper-plane mr-1"></i> İstek Parça
-            </button>
-
-        </div>
-    </div>
-
-    <!-- SONG REQUEST MODAL -->
-    <div id="requestModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="glass-panel w-full max-w-md mx-4 p-6 sm:p-8 rounded-2xl border border-brand-purple/40 shadow-2xl relative transform scale-95 transition-transform duration-300" id="modalCard">
-            
-            <!-- Close Button -->
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-2">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-
-            <div class="text-center mb-6">
-                <div class="w-12 h-12 rounded-full bg-brand-purple/20 text-brand-purple flex items-center justify-center mx-auto mb-3 text-xl">
-                    <i class="fa-solid fa-compact-disc"></i>
-                </div>
-                <h3 class="font-display text-xl font-bold text-white">Canlı Yayın İstek Hattı</h3>
-                <p class="text-xs text-gray-400 mt-1">Şarkınızı ve mesajınızı stüdyomuza iletin.</p>
-            </div>
-
-            <form onsubmit="handleRequestSubmit(event)" class="space-y-4">
+        <!-- Contact / Request Form -->
+        <div id="contact" class="glass-card p-6 rounded-2xl">
+            <h3 class="text-xl font-bold mb-6 flex items-center space-x-3 text-purple-400">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>İstek & Mesaj Hattı</span>
+            </h3>
+            <form onsubmit="sendRequest(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-gray-300 mb-1">Adınız / Rumuzunuz</label>
-                    <input type="text" id="reqName" required class="w-full bg-gray-900/90 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-purple" placeholder="Örn: Ahmet Can">
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Adınız / Rumuzunuz</label>
+                    <input type="text" id="reqName" required class="w-full bg-gray-900/80 border border-gray-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="Örn: Dinleyici Arda">
                 </div>
-
                 <div>
-                    <label class="block text-xs font-semibold text-gray-300 mb-1">Sanatçı & Şarkı Adı</label>
-                    <input type="text" id="reqSong" required class="w-full bg-gray-900/90 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-purple" placeholder="Örn: Müslüm Gürses - Seni Yazdım">
+                    <label class="block text-xs font-medium text-gray-300 mb-1">İstek Şarkı veya Mesajınız</label>
+                    <textarea id="reqMessage" rows="3" required class="w-full bg-gray-900/80 border border-gray-800 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="Hangi şarkıyı çalalım? Selam göndermek istediğiniz biri var mı?"></textarea>
                 </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-gray-300 mb-1">Yayın Mesajınız (Opsiyonel)</label>
-                    <textarea id="reqMessage" rows="3" class="w-full bg-gray-900/90 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-purple" placeholder="Yayıncılarımıza iletmek istediğiniz mesaj..."></textarea>
-                </div>
-
-                <button type="submit" class="w-full py-3 bg-gradient-to-r from-brand-purple to-indigo-600 text-white font-bold text-sm uppercase rounded-xl hover:opacity-95 transition-opacity shadow-lg shadow-brand-purple/20">
-                    İsteği Gönder
+                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium py-2.5 rounded-xl transition shadow-lg shadow-purple-600/30">
+                    Stüdyoya Gönder
                 </button>
             </form>
         </div>
-    </div>
+    </section>
 
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed top-24 right-4 z-50 glass-panel border border-brand-purple/50 p-4 rounded-xl shadow-xl flex items-center gap-3 transform translate-x-full transition-transform duration-300">
-        <i class="fa-solid fa-circle-check text-brand-amber text-xl"></i>
-        <div>
-            <h6 class="text-xs font-bold text-white">Başarılı!</h6>
-            <p class="text-xs text-gray-300" id="toastMessage">İstek parçanız yayın stüdyosuna iletildi.</p>
+    <!-- Interactive Live Chat Drawer / Modal -->
+    <div id="chatModal" class="fixed bottom-20 right-6 w-80 md:w-96 glass rounded-2xl shadow-2xl z-50 hidden flex flex-col h-[420px] border border-purple-500/30 overflow-hidden">
+        <div class="bg-purple-900/60 p-3.5 flex items-center justify-between border-b border-purple-500/20">
+            <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+                <h4 class="font-bold text-sm text-white">Canlı Dinleyici Sohbeti</h4>
+            </div>
+            <button onclick="toggleChat()" class="text-gray-300 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
         </div>
+        <!-- Chat Messages Area -->
+        <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
+            <div class="bg-gray-900/60 p-2.5 rounded-xl border border-gray-800">
+                <span class="font-bold text-purple-400">DJ Stüdyo:</span> Yayınımıza hoş geldiniz! Sohbetten isteklerinizi yazabilirsiniz.
+            </div>
+            <div class="bg-gray-900/60 p-2.5 rounded-xl border border-gray-800">
+                <span class="font-bold text-pink-400">Mert_34:</span> Herkese selamlar, harika bir parça çalıyor!
+            </div>
+        </div>
+        <!-- Chat Input Form -->
+        <form onsubmit="sendChat(event)" class="p-3 bg-gray-950 border-t border-gray-800 flex space-x-2">
+            <input type="text" id="chatInput" placeholder="Mesaj yaz..." required class="flex-1 bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500">
+            <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition">Gönder</button>
+        </form>
     </div>
 
+    <!-- Footer -->
+    <footer class="text-center py-6 text-xs text-gray-500 border-t border-gray-900">
+        &copy; 2026 Profesyonel Canlı Radyo Sistemi. Tüm Hakları Saklıdır.
+    </footer>
+
+    <!-- Caster.fm Widget Script -->
+    <script src="https://cdn.cloud.caster.fm/widgets/embed.js"></script>
+
+    <!-- UI Scripts -->
     <script>
-        // Request Modal Controls
-        const requestModal = document.getElementById('requestModal');
-        const modalCard = document.getElementById('modalCard');
-
-        function openModal() {
-            requestModal.classList.remove('opacity-0', 'pointer-events-none');
-            modalCard.classList.remove('scale-95');
-            modalCard.classList.add('scale-100');
+        function toggleChat() {
+            const modal = document.getElementById('chatModal');
+            modal.classList.toggle('hidden');
         }
 
-        function closeModal() {
-            requestModal.classList.add('opacity-0', 'pointer-events-none');
-            modalCard.classList.remove('scale-100');
-            modalCard.classList.add('scale-95');
-        }
-
-        function handleRequestSubmit(e) {
+        function sendRequest(e) {
             e.preventDefault();
-            closeModal();
-            showToast("İstek parçanız stüdyomuza başarıyla iletildi!");
+            const name = document.getElementById('reqName').value;
+            alert("Teşekkürler " + name + "! İstek ve mesajınız başarıyla DJ stüdyosuna iletildi.");
             e.target.reset();
         }
 
-        function handleContactSubmit(e) {
+        function sendChat(e) {
             e.preventDefault();
-            showToast("Mesajınız alındı. En kısa sürede dönüş yapacağız.");
-            e.target.reset();
+            const input = document.getElementById('chatInput');
+            const chatMessages = document.getElementById('chatMessages');
+            
+            if(input.value.trim() !== '') {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = "bg-gray-900/60 p-2.5 rounded-xl border border-gray-800";
+                msgDiv.innerHTML = `<span class="font-bold text-indigo-400">Siz:</span> ${input.value}`;
+                chatMessages.appendChild(msgDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                input.value = '';
+            }
         }
-
-        // Toast Notification Display
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toastMessage');
-            toastMsg.innerText = msg;
-            toast.classList.remove('translate-x-full');
-
-            setTimeout(() => {
-                toast.classList.add('translate-x-full');
-            }, 4000);
-        }
-
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
     </script>
 </body>
 </html>
